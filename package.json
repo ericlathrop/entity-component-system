@@ -1,0 +1,24 @@
+{
+  "name": "entity-component-system",
+  "version": "0.0.0",
+  "description": "Entity Component System",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index.test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ericlathrop/entity-component-system.git"
+  },
+  "keywords": [
+  ],
+  "author": "Eric Lathrop <eric@ericlathrop.com> (http://ericlathrop.com/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ericlathrop/entity-component-system/issues"
+  },
+  "homepage": "https://github.com/ericlathrop/entity-component-system",
+  "devDependencies": {
+    "tape": "^3.0.3"
+  }
+}
