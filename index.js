@@ -1,7 +1,7 @@
 function ECS() {
 	this.lastId = 0;
 	this.entities = {};
-	this.systems = [];
+	this.systems = {};
 }
 ECS.prototype.addEntity = function() {
 	var id = this.lastId;
@@ -21,10 +21,16 @@ ECS.prototype.addComponent = function(entity, name, component) {
 ECS.prototype.removeComponent = function(entity, name) {
 	delete this.entities[entity][name];
 };
-ECS.prototype.run = function() {
-	var args = Array.prototype.slice.call(arguments);
+ECS.prototype.addSystem = function(name, system) {
+	if (!this.systems[name]) {
+		this.systems[name] = [];
+	}
+	this.systems[name].push(system);
+};
+ECS.prototype.run = function(name) {
+	var args = Array.prototype.slice.call(arguments, 1);
 	var ecs = this;
-	this.systems.forEach(function(system) {
+	this.systems[name].forEach(function(system) {
 		Object.keys(ecs.entities).forEach(function(entity) {
 			system.apply(ecs, [ecs.entities[entity]].concat(args));
 		});

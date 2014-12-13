@@ -86,8 +86,8 @@ test("run with entity and system calls system with entity", function(t) {
 	var done = function(entity) {
 		t.deepEqual(entity, ecs.getEntity(id))
 	};
-	ecs.systems.push(done);
-	ecs.run();
+	ecs.addSystem("simulation", done);
+	ecs.run("simulation");
 });
 
 test("run with args calls system with args", function(t) {
@@ -98,6 +98,6 @@ test("run with args calls system with args", function(t) {
 	var done = function(entity, arg) {
 		t.equal(arg, 8)
 	};
-	ecs.systems.push(done);
-	ecs.run(8);
+	ecs.addSystem("simulation", done);
+	ecs.run("simulation", 8);
 });
