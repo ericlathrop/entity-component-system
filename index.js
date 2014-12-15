@@ -46,9 +46,14 @@ function getSystemGroup(ecs, group) {
 }
 
 function runSystem(ecs, args, system) {
-	Object.keys(ecs.entities).forEach(function(entity) {
-		system.apply(ecs, [ecs.entities[entity]].concat(args));
-	});
+	if (system.setup) {
+		system.setup.apply(ecs, args);
+	}
+	if (system.each) {
+		Object.keys(ecs.entities).forEach(function(entity) {
+			system.each.apply(ecs, [ecs.entities[entity]].concat(args));
+		});
+	}
 }
 
 module.exports = ECS;

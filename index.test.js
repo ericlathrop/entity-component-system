@@ -90,6 +90,18 @@ test("removeComponent with existing entity removes component", function(t) {
 	t.deepEqual(ecs.getEntity(entity), {});
 });
 
+test("run with system with setup calls setup", function(t) {
+	t.plan(1);
+
+	var ecs = new ECS();
+	ecs.addEntity();
+	var done = function(arg) {
+		t.deepEqual(arg, "arg");
+	};
+	ecs.addSystem("simulation", { setup: done });
+	ecs.run("simulation", "arg");
+});
+
 test("run with entity and system calls system with entity", function(t) {
 	t.plan(1);
 
@@ -98,7 +110,7 @@ test("run with entity and system calls system with entity", function(t) {
 	var done = function(entity) {
 		t.deepEqual(entity, ecs.getEntity(id));
 	};
-	ecs.addSystem("simulation", done);
+	ecs.addSystem("simulation", { each: done });
 	ecs.run("simulation");
 });
 
@@ -110,7 +122,7 @@ test("run with args calls system with args", function(t) {
 	var done = function(entity, arg) { // jshint ignore:line
 		t.equal(arg, 8);
 	};
-	ecs.addSystem("simulation", done);
+	ecs.addSystem("simulation", { each: done });
 	ecs.run("simulation", 8);
 });
 
