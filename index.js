@@ -29,11 +29,7 @@ ECS.prototype.addSystem = function(group, system) {
 ECS.prototype.run = function(group) {
 	var args = Array.prototype.slice.call(arguments, 1);
 	var ecs = this;
-	getSystemGroup(ecs, group).forEach(function(system) {
-		Object.keys(ecs.entities).forEach(function(entity) {
-			system.apply(ecs, [ecs.entities[entity]].concat(args));
-		});
-	});
+	getSystemGroup(ecs, group).forEach(runSystem.bind(this, this, args));
 };
 
 function getSystemGroup(ecs, group) {
@@ -41,6 +37,12 @@ function getSystemGroup(ecs, group) {
 		ecs.systems[group] = [];
 	}
 	return ecs.systems[group];
+}
+
+function runSystem(ecs, args, system) {
+	Object.keys(ecs.entities).forEach(function(entity) {
+		system.apply(ecs, [ecs.entities[entity]].concat(args));
+	});
 }
 
 module.exports = ECS;
