@@ -7,7 +7,7 @@ function ECS() {
 }
 ECS.prototype.addEntity = function() {
 	var id = this.lastId;
-	this.entities[id] = {};
+	this.entities[id] = { id: id };
 	this.lastId++;
 	return id;
 };

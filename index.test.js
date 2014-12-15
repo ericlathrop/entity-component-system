@@ -22,24 +22,24 @@ test("getEntity with nonexistant entity returns undefined", function(t) {
 	t.equal(actual, undefined);
 });
 
-test("getEntity with existing entity returns empty object", function(t) {
+test("getEntity with existing entity returns object with id", function(t) {
 	t.plan(1);
 
 	var ecs = new ECS();
-	var entity = ecs.addEntity();
-	var actual = ecs.getEntity(entity);
+	var id = ecs.addEntity();
+	var actual = ecs.getEntity(id);
 
-	t.deepEqual(actual, {});
+	t.deepEqual(actual, { id: id });
 });
 
 test("getEntities with existing entity returns array of entities", function(t) {
 	t.plan(1);
 
 	var ecs = new ECS();
-	ecs.addEntity();
+	var id = ecs.addEntity();
 	var actual = ecs.getEntities();
 
-	t.deepEqual(actual, [{}]);
+	t.deepEqual(actual, [{ id: id }]);
 });
 
 test("removeEntity with existing entity deletes entity", function(t) {
@@ -66,9 +66,9 @@ test("addComponent with existing entity adds component", function(t) {
 	t.plan(1);
 
 	var ecs = new ECS();
-	var entity = ecs.addEntity();
-	ecs.addComponent(entity, "component", {});
-	t.deepEqual(ecs.getEntity(entity), { component: {} });
+	var id = ecs.addEntity();
+	ecs.addComponent(id, "component", {});
+	t.deepEqual(ecs.getEntity(id), { id: id, component: {} });
 });
 
 test("removeComponent with nonexistant entity throws", function(t) {
@@ -84,10 +84,10 @@ test("removeComponent with existing entity removes component", function(t) {
 	t.plan(1);
 
 	var ecs = new ECS();
-	var entity = ecs.addEntity();
-	ecs.addComponent(entity, "component", {});
-	ecs.removeComponent(entity, "component");
-	t.deepEqual(ecs.getEntity(entity), {});
+	var id = ecs.addEntity();
+	ecs.addComponent(id, "component", {});
+	ecs.removeComponent(id, "component");
+	t.deepEqual(ecs.getEntity(id), { id: id });
 });
 
 test("run with system with setup calls setup", function(t) {
