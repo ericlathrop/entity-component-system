@@ -32,6 +32,16 @@ test("getEntity with existing entity returns empty object", function(t) {
 	t.deepEqual(actual, {});
 });
 
+test("getEntities with existing entity returns array of entities", function(t) {
+	t.plan(1);
+
+	var ecs = new ECS();
+	ecs.addEntity();
+	var actual = ecs.getEntities();
+
+	t.deepEqual(actual, [{}]);
+});
+
 test("removeEntity with existing entity deletes entity", function(t) {
 	t.plan(1);
 

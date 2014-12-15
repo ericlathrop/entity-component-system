@@ -14,6 +14,12 @@ ECS.prototype.addEntity = function() {
 ECS.prototype.getEntity = function(entity) {
 	return this.entities[entity];
 };
+ECS.prototype.getEntities = function() {
+	var ecs = this;
+	return Object.keys(this.entities).map(function(id) {
+		return ecs.entities[id];
+	});
+};
 ECS.prototype.removeEntity = function(entity) {
 	delete this.entities[entity];
 };
