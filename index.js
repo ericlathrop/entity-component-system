@@ -1,3 +1,5 @@
+"use strict";
+
 function ECS() {
 	this.lastId = 0;
 	this.entities = {};

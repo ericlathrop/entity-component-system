@@ -4,14 +4,15 @@
   "description": "Entity Component System",
   "main": "index.js",
   "scripts": {
+    "lint": "bash -c \"jshint *.js\"",
+    "build": "npm run lint && npm test",
     "test": "node index.test.js"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/ericlathrop/entity-component-system.git"
   },
-  "keywords": [
-  ],
+  "keywords": [],
   "author": "Eric Lathrop <eric@ericlathrop.com> (http://ericlathrop.com/)",
   "license": "MIT",
   "bugs": {
@@ -19,6 +20,30 @@
   },
   "homepage": "https://github.com/ericlathrop/entity-component-system",
   "devDependencies": {
+    "jshint": "^2.5.10",
     "tape": "^3.0.3"
+  },
+  "jshintConfig": {
+    "camelcase": true,
+    "curly": true,
+    "eqeqeq": true,
+    "forin": true,
+    "freeze": true,
+    "immed": true,
+    "indent": 4,
+    "latedef": "nofunc",
+    "newcap": true,
+    "noarg": true,
+    "noempty": true,
+    "nonbsp": true,
+    "nonew": true,
+    "quotmark": "double",
+    "unused": "strict",
+    "trailing": true,
+    "browser": true,
+    "devel": true,
+    "globalstrict": true,
+    "node": true,
+    "globals": {}
   }
 }

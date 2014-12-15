@@ -1,3 +1,5 @@
+"use strict";
+
 var test = require("tape");
 
 var ECS = require("./index");
@@ -84,7 +86,7 @@ test("run with entity and system calls system with entity", function(t) {
 	var ecs = new ECS();
 	var id = ecs.addEntity();
 	var done = function(entity) {
-		t.deepEqual(entity, ecs.getEntity(id))
+		t.deepEqual(entity, ecs.getEntity(id));
 	};
 	ecs.addSystem("simulation", done);
 	ecs.run("simulation");
@@ -94,9 +96,9 @@ test("run with args calls system with args", function(t) {
 	t.plan(1);
 
 	var ecs = new ECS();
-	var id = ecs.addEntity();
-	var done = function(entity, arg) {
-		t.equal(arg, 8)
+	ecs.addEntity();
+	var done = function(entity, arg) { // jshint ignore:line
+		t.equal(arg, 8);
 	};
 	ecs.addSystem("simulation", done);
 	ecs.run("simulation", 8);
