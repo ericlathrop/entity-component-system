@@ -103,3 +103,12 @@ test("run with args calls system with args", function(t) {
 	ecs.addSystem("simulation", done);
 	ecs.run("simulation", 8);
 });
+
+test("run with nonexistant group doesn't throw", function(t) {
+	t.plan(1);
+
+	var ecs = new ECS();
+	t.doesNotThrow(function() {
+		ecs.run("simulation");
+	});
+});
