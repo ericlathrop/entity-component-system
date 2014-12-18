@@ -6,13 +6,17 @@ function EntityComponentSystem() {
 EntityComponentSystem.prototype.add = function(code) {
 	this.systems.push(code);
 };
-EntityComponentSystem.prototype.addEach = function(code) {
-	this.add(function(entities) {
+EntityComponentSystem.prototype.addEach = function(code, requirements) {
+	this.systems.push(function(entities) {
 		var args = arguments;
-		entities.forEach(function(entity) {
+		for (var i = 0; i < entities.length; i++) {
+			var entity = entities[i];
+			if (requirements && !entityHasComponents(requirements, entity)) {
+				return;
+			}
 			args[0] = entity;
 			code.apply(undefined, args);
-		});
+		}
 	});
 };
 EntityComponentSystem.prototype.run = function() {
@@ -20,6 +24,15 @@ EntityComponentSystem.prototype.run = function() {
 	this.systems.forEach(function(system) {
 		system.apply(undefined, args);
 	});
+};
+
+function entityHasComponents(components, entity) {
+	for (var i = 0; i < components.length; i++) {
+		if (!entity.hasOwnProperty(components[i])) {
+			return false;
+		}
+	}
+	return true;
 };
 
 module.exports = EntityComponentSystem;
