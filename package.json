@@ -1,7 +1,7 @@
 {
   "name": "entity-component-system",
-  "version": "0.1.0",
-  "description": "Entity Component System",
+  "version": "1.0.0",
+  "description": "An implementation of the Entity component system (ECS) pattern used commonly in video games.",
   "main": "index.js",
   "scripts": {
     "lint": "bash -c \"jshint *.js\"",
@@ -12,7 +12,12 @@
     "type": "git",
     "url": "https://github.com/ericlathrop/entity-component-system.git"
   },
-  "keywords": [],
+  "keywords": [
+    "game",
+    "video game",
+    "ecs",
+    "entity component system"
+  ],
   "author": "Eric Lathrop <eric@ericlathrop.com> (http://ericlathrop.com/)",
   "license": "MIT",
   "bugs": {
