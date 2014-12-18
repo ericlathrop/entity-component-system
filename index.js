@@ -33,6 +33,6 @@ function entityHasComponents(components, entity) {
 		}
 	}
 	return true;
-};
+}
 
 module.exports = EntityComponentSystem;
