@@ -9,8 +9,9 @@ EntityComponentSystem.prototype.add = function(code) {
 EntityComponentSystem.prototype.addEach = function(code, requirements) {
 	this.systems.push(function(entities) {
 		var args = arguments;
-		for (var i = 0; i < entities.length; i++) {
-			var entity = entities[i];
+		var keys = Object.keys(entities);
+		for (var i = 0; i < keys.length; i++) {
+			var entity = entities[keys[i]];
 			if (requirements && !entityHasComponents(requirements, entity)) {
 				return;
 			}

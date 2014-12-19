@@ -45,7 +45,7 @@ Any additional parameters are the same as what was passed to `run()`.
 # addEach(system, requirements)
 
 Adds a "system" to the ECS, where a system is a function.
-The system is called once for each entity in the array of entities passed to `run()`.
+The system is called once for each entity in the array or object of entities passed to `run()`.
 The first parameter passed to the system a single entity.
 Any additional parameters are the same as what was passed to `run()`.
 

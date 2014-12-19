@@ -16,7 +16,7 @@ test("run with system and entities calls system with entities", function(t) {
 	ecs.run(entities);
 });
 
-test("run with each system and entities calls system with each entity", function(t) {
+test("run with each system and array of entities calls system with each entity", function(t) {
 	t.plan(2);
 
 	var entities = [{}];
@@ -27,6 +27,18 @@ test("run with each system and entities calls system with each entity", function
 	};
 	ecs.addEach(done);
 	ecs.run(entities, "arg2");
+});
+
+test("run with each system and object of entities calls system with each entity", function(t) {
+	t.plan(1);
+
+	var entities = { 1337: {} };
+	var ecs = new ECS();
+	var done = function(arg) {
+		t.deepEqual(arg, entities[1337]);
+	};
+	ecs.addEach(done);
+	ecs.run(entities);
 });
 
 test("run with each system and requirements and entity without requirements doesnt call system", function(t) {
