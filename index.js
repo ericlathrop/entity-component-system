@@ -21,9 +21,9 @@ EntityComponentSystem.prototype.addEach = function(code, requirements) {
 };
 EntityComponentSystem.prototype.run = function() {
 	var args = arguments;
-	this.systems.forEach(function(system) {
-		system.apply(undefined, args);
-	});
+	for (var i = 0; i < this.systems.length; i++) {
+		this.systems[i].apply(undefined, args);
+	}
 };
 
 function entityHasComponents(components, entity) {
