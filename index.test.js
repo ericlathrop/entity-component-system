@@ -41,21 +41,11 @@ test("run with each system and object of entities calls system with each entity"
 	ecs.run(entities);
 });
 
-test("run with each system and requirements and entity without requirements doesnt call system", function(t) {
-	t.plan(0);
-	var ecs = new ECS();
-	ecs.addEach(function(entity) {
-		t.equal(entity.name, "me");
-	}, ["name"]);
-	ecs.run([{}]);
-	t.end();
-});
-
 test("run with each system and requirements and entity with requirements calls system", function(t) {
 	t.plan(1);
 	var ecs = new ECS();
 	ecs.addEach(function(entity) {
 		t.equal(entity.name, "me");
 	}, ["name"]);
-	ecs.run([{"name": "me"}]);
+	ecs.run([{}, {"name": "me"}]);
 });

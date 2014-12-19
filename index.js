@@ -13,7 +13,7 @@ EntityComponentSystem.prototype.addEach = function(code, requirements) {
 		for (var i = 0; i < keys.length; i++) {
 			var entity = entities[keys[i]];
 			if (requirements && !entityHasComponents(requirements, entity)) {
-				return;
+				continue;
 			}
 			args[0] = entity;
 			code.apply(undefined, args);
