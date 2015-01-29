@@ -29,7 +29,7 @@ var canvas = document.getElementById("canvas");
 var context = canvas.getContext("2d");
 
 var render = function(time) {
-	ecs.run(entitues, context);
+	ecs.run(entities, context);
 	window.requestAnimationFrame(render);
 };
 window.requestAnimationFrame(render);
