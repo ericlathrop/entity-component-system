@@ -1,5 +1,7 @@
 "use strict";
 
+var present = require("present");
+
 function EntityComponentSystem() {
 	this.systems = [];
 }
@@ -22,9 +24,13 @@ EntityComponentSystem.prototype.addEach = function(code, requirements) {
 };
 EntityComponentSystem.prototype.run = function() {
 	var args = arguments;
+	var times = [];
 	for (var i = 0; i < this.systems.length; i++) {
+		var start = present();
 		this.systems[i].apply(undefined, args);
+		times.push(present() - start);
 	}
+	return times;
 };
 
 function entityHasComponents(components, entity) {

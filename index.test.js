@@ -49,3 +49,11 @@ test("run with each system and requirements and entity with requirements calls s
 	}, ["name"]);
 	ecs.run([{}, {"name": "me"}]);
 });
+
+test("run with system returns time", function(t) {
+	t.plan(1);
+	var ecs = new ECS();
+	ecs.addEach(function() {
+	});
+	t.equal(ecs.run([{}]).length, 1);
+});

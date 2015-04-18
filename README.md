@@ -54,7 +54,7 @@ The system will only be invoked for entities that have the keys specified in `re
 
 # run(entities, [arguments])
 
-Invokes all systems with the specified `entities`. Any optional extra arguments will be passed through to each system.
+Invokes all systems with the specified `entities`. Any optional extra arguments will be passed through to each system. Returns an array of elapsed times for each system that ran.
 
 # Design Goals
 
