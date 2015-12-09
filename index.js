@@ -4,7 +4,7 @@ function EntityComponentSystem() {
 	this.systems = [];
 	this.now = function() {
 		return 0;
-	}
+	};
 }
 EntityComponentSystem.prototype.add = function(code) {
 	this.systems.push(code);

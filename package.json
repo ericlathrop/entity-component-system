@@ -25,32 +25,9 @@
   },
   "homepage": "https://github.com/ericlathrop/entity-component-system",
   "devDependencies": {
-    "jshint": "^2.5.10",
+    "eslint": "^1.10.3",
     "tap-spec": "^4.1.1",
     "tape": "^4.2.2"
-  },
-  "jshintConfig": {
-    "camelcase": true,
-    "curly": true,
-    "eqeqeq": true,
-    "forin": true,
-    "freeze": true,
-    "immed": true,
-    "indent": 4,
-    "latedef": "nofunc",
-    "newcap": true,
-    "noarg": true,
-    "noempty": true,
-    "nonbsp": true,
-    "nonew": true,
-    "quotmark": "double",
-    "unused": "strict",
-    "trailing": true,
-    "browser": true,
-    "devel": true,
-    "globalstrict": true,
-    "node": true,
-    "globals": {}
   },
   "dependencies": {}
 }
