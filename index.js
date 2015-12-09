@@ -2,9 +2,6 @@
 
 function EntityComponentSystem() {
 	this.systems = [];
-	this.now = function() {
-		return 0;
-	};
 }
 EntityComponentSystem.prototype.add = function(code) {
 	this.systems.push(code);
@@ -25,13 +22,9 @@ EntityComponentSystem.prototype.addEach = function(code, requirements) {
 };
 EntityComponentSystem.prototype.run = function() {
 	var args = arguments;
-	var times = [];
 	for (var i = 0; i < this.systems.length; i++) {
-		var start = this.now();
 		this.systems[i].apply(undefined, args);
-		times.push(this.now() - start);
 	}
-	return times;
 };
 
 function entityHasComponents(components, entity) {

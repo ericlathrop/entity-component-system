@@ -4,6 +4,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Removed
+- `run()` no longer returns timings of systems
+
 ## [1.2.2] - 2015-12-08
 ### Changed
 - Adoped a [code of condict](CODE_OF_CONDUCT.md)
