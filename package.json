@@ -6,7 +6,7 @@
   "scripts": {
     "lint": "bash -c \"jshint *.js\"",
     "build": "npm run lint && npm test",
-    "test": "node index.test.js"
+    "test": "node index.test.js | tap-spec"
   },
   "repository": {
     "type": "git",
@@ -26,7 +26,8 @@
   "homepage": "https://github.com/ericlathrop/entity-component-system",
   "devDependencies": {
     "jshint": "^2.5.10",
-    "tape": "^3.0.3"
+    "tap-spec": "^4.1.1",
+    "tape": "^4.2.2"
   },
   "jshintConfig": {
     "camelcase": true,
@@ -51,6 +52,5 @@
     "node": true,
     "globals": {}
   },
-  "dependencies": {
-  }
+  "dependencies": {}
 }
