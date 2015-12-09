@@ -6,7 +6,7 @@
   "scripts": {
     "lint": "eslint .",
     "build": "npm run lint && npm test",
-    "test": "node lib/entity-component-system-test.js | tap-spec"
+    "test": "tape 'lib/**/*-test.js' | tap-spec"
   },
   "repository": {
     "type": "git",
