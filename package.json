@@ -4,7 +4,7 @@
   "description": "An implementation of the Entity component system (ECS) pattern used commonly in video games.",
   "main": "index.js",
   "scripts": {
-    "lint": "bash -c \"jshint *.js\"",
+    "lint": "eslint .",
     "build": "npm run lint && npm test",
     "test": "node index.test.js | tap-spec"
   },
