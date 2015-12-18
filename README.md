@@ -88,7 +88,7 @@ Registers a callback to be called when `component` is added to any entity. The c
 
 ## onRemoveComponent(component, callback)
 
-Registers a callback to be called when `component` is removed from any entity. The callback is called with the same arguments that `remove()` received like `callback(id, component)`.
+Registers a callback to be called when `component` is removed from any entity. The callback is called with like `callback(id, component, oldValue)`.
 
 ## find(search)
 
