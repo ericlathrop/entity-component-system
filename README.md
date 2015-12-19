@@ -111,18 +111,15 @@ Registers a named `search` for entities that have all components listed in the `
 ## load(entities)
 
 Load entities into an entity pool from an array of objects.
-
 `load` should only be used to fill an empty Entity Pool.
-
 The format looks like:
-
 
 ```json
 [
-  {
-    "id": 1,
-    "componentName": "componentValue"
-  },
+	{
+		"id": 1,
+		"componentName": "componentValue"
+	},
 	{
 		"id": 2,
 		"componentName": "componentValue"
