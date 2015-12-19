@@ -1,13 +1,17 @@
 # entity-component-system
 
-An implementation of the [Entity component system](https://en.wikipedia.org/wiki/Entity_component_system) (ECS) pattern used commonly in video games.
+An implementation of the [Entity Component System](https://en.wikipedia.org/wiki/Entity_component_system) (ECS) pattern used commonly in video games.
 
 ECS is a way of organizing a system using composition instead of inheritance. It allows you to turn behaviors on and off by adding and removing components to entities.
 
 This module manages the running a list of "systems" over a collection of entities.
-An "entity" is an integer id.
+An "entity" is a logical object in a game.
 A "component" is a chunk of data attached to an entity.
-A "system" is a function that processes entities with specific components.
+A "system" is a function that runs on all entities with specific components.
+
+
+The only way to make changes to an entity is to create/edit/delete components attached to it.
+
 
 # Example
 
@@ -81,14 +85,20 @@ Removes a component from an entity. The `onRemoveComponent` callbacks are fired 
 ## set(id, component, value)
 
 Adds or changes a component value for an entity. If the component is newly added, the `onAddComponent` callbacks are fired for the added component.
+When a new component is `set()`, `registerSearch` is automatically called for that single component.
+
+```javascript
+pool.set(someEntity, "someComponent", someValue);
+pool.registerSearch("someComponent", ["someComponent"]); // this is automatically called for you
+```
 
 ## onAddComponent(component, callback)
 
-Registers a callback to be called when `component` is added to any entity. The callback is called with the same arguments that `add()` received like `callback(id, component, value)`.
+Registers a callback to be called when `component` is added to any entity. The callback is called with the same arguments that `add()` received, for example: `callback(id, component, value)`.
 
 ## onRemoveComponent(component, callback)
 
-Registers a callback to be called when `component` is removed from any entity. The callback is called with like `callback(id, component, oldValue)`.
+Registers a callback to be called when `component` is removed from any entity. For example: `callback(id, component, oldValue)`.
 
 ## find(search)
 
@@ -96,18 +106,24 @@ Returns a list of entity ids for all entities that match the search. See `regist
 
 ## registerSearch(search, components)
 
-Registers a named `search` for entities that have all components listed in `components`. A search is automatically registered for every individual component that is `add()`ed with the same name as the component. `registerSearch` lets you register searches that require more than one component.
+Registers a named `search` for entities that have all components listed in the `components` array, for example: `registerSearch("collectables", ["size", "collisions"])`.
 
 ## load(entities)
 
-Load entities from an object. The format looks like:
+Load entities into an entity pool from an array of objects.
+`load` should only be used to fill an empty Entity Pool.
+The format looks like:
 
 ```json
 [
-  {
-    "id": 1,
-    "componentName": "componentValue"
-  }
+	{
+		"id": 1,
+		"componentName": "componentValue"
+	},
+	{
+		"id": 2,
+		"componentName": "componentValue"
+	}
 ]
 ```
 
