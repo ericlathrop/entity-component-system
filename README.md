@@ -68,7 +68,7 @@ Returns the number of times `run()` was called.
 
 ## timings()
 
-Returns an array of each system's name and time it ran in milliseconds.
+Returns an array of each system's `name` and `time` it ran in milliseconds. The system names are gathered from the names of functions passed to `add` and `addEach`.
 
 ## resetTimings()
 
