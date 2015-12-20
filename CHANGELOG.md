@@ -4,6 +4,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [2.2.0] - 2015-12-19
+### Added
+- Add timing APIs so you can see which system is slow
+
 ## [2.1.0] - 2015-12-17
 ### Added
 - The `onRemoveComponent` callback is now invoked with the old component value that was removed

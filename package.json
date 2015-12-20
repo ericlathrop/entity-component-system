@@ -1,6 +1,6 @@
 {
   "name": "entity-component-system",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "description": "An implementation of the Entity component system (ECS) pattern used commonly in video games.",
   "main": "lib/index.js",
   "scripts": {
@@ -29,5 +29,7 @@
     "tap-spec": "^4.1.1",
     "tape": "^4.2.2"
   },
-  "dependencies": {}
+  "dependencies": {
+    "present": "0.0.6"
+  }
 }

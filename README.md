@@ -62,6 +62,18 @@ Any additional parameters are the same as what was passed to `run()`.
 
 Invokes all systems with the specified EntityPool. Any optional extra arguments will be passed through to each system.
 
+## runs()
+
+Returns the number of times `run()` was called.
+
+## timings()
+
+Returns an array of each system's name and time it ran in milliseconds.
+
+## resetTimings()
+
+Resets the timing information and number of runs back to zero.
+
 # EntityPool
 
 An `EntityPool` holds the entities for an `EntityComponentSystem`. `EntityPool` provides ways to add, remove, modify, and search for entities. `EntityPool` also has hooks where you can provide callbacks to be notified of changes.
