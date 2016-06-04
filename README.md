@@ -49,18 +49,18 @@ An `EntityComponentSystem` holds the systems (code) and allows you to run them w
 Adds a "system" to the ECS, where a system is a function.
 The system is called once every time `run()` is called.
 The first parameter passed to the system is the `EntityPool` of entities to operate on.
-Any additional parameters are the same as what was passed to `run()`.
+The second parameters passed to the system is the elapsed milliseconds since the last call to `run()`.
 
 ## addEach(system, search)
 
 Adds a "system" to the ECS, where a system is a function.
 The system is called once for each entity returned from `EntityPool.find(search)` in the `EntityPool` passed to `run()`.
 The first parameter passed to the system is an entity id.
-Any additional parameters are the same as what was passed to `run()`.
+The second parameters passed to the system is the elapsed milliseconds since the last call to `run()`.
 
-## run(entityPool, [arguments])
+## run(entityPool, elapsedTime)
 
-Invokes all systems with the specified EntityPool. Any optional extra arguments will be passed through to each system.
+Invokes all systems with the specified EntityPool, and elapsed time in milliseconds.
 
 ## runs()
 

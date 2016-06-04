@@ -4,6 +4,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [3.0.0] - 2016-06-04
+### Changed
+- Change dynamic arguments in `EntityComponentSystem.run()` to fixed arguments for dramatic speed improvement
+
 ## [2.2.0] - 2015-12-19
 ### Added
 - Add timing APIs so you can see which system is slow
