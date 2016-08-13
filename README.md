@@ -106,7 +106,14 @@ Resets the timing information and number of runs back to zero.
 
 # EntityPool
 
-An `EntityPool` holds the entities for an `EntityComponentSystem`. `EntityPool` provides ways to add, remove, modify, and search for entities. `EntityPool` also has hooks where you can provide callbacks to be notified of changes.
+An `EntityPool` holds the entities and components for an
+`EntityComponentSystem`. `EntityPool` provides ways to add, remove, modify, and
+search for entities. `EntityPool` also has hooks where you can provide callbacks
+to be notified of changes.
+
+`EntityPool` also implements the [Object Pool
+pattern](http://gameprogrammingpatterns.com/object-pool.html) to reduce
+stuttering caused by garbage collection.
 
 ## create()
 
@@ -114,11 +121,19 @@ Creates a new entity, and returns the entity's id.
 
 ## destroy(id)
 
-Removes all the components for an entity, and deletes the entity. The `onRemoveComponent` callbacks are fired for each component that is removed.
+Removes all the components for an entity, and deletes the entity. The
+`onRemoveComponent` callbacks are fired for each component that is removed.
 
 ## registerComponent(component, factory, reset, size)
 
-Registers a component type. The `factory` function returns a newly allocated instance of the component. The optional `reset` function resets a previously used component instance to a clean state so it can be used again for a new entity. The optional `size` specifies how many instances to allocate initially.
+Registers a component type.
+
+* `component` is the name of the component to register.
+* `factory` is a factory function which returns a newly allocated instance of
+  the component.
+* `reset` is an optional function which alters a previously used component
+  instance to a clean state so it can be reused on a new entity.
+* `size` is an optional number of instances to allocate initially.
 
 ## getComponent(id, component)
 
@@ -126,38 +141,68 @@ Returns the component value for an entity.
 
 ## removeComponent(id, component)
 
-Removes a component from an entity. The `onRemoveComponent` callbacks are fired for the removed component.
+Removes a component from an entity. The `onRemoveComponent` callbacks are fired
+for the removed component.
 
-## addComponent(id, component, value)
+## addComponent(id, component)
 
-Adds component to an entity, and returns it. If the component is newly added, the `onAddComponent` callbacks are fired, and `registerSearch` is automatically called for the added component. If the component already existed, it is reset.
+Adds a new component to an entity, and returns it. If the component is newly added,
+the `onAddComponent` callbacks are fired. If the component already existed, it is reset.
 
 ```javascript
 var sprite = pool.addComponent(someEntity, "sprite");
 sprite.image = "something.png";
 ```
 
+## setComponent(id, component, value)
+
+Sets a primitive value for a component. To change a component that holds an
+object, use `getComponent` instead.
+
 ## onAddComponent(component, callback)
 
-Registers a callback to be called when `component` is added to any entity. The callback is called with the same arguments that `add()` received, for example: `callback(id, component, value)`.
+Registers a callback to be called when `component` is added to any entity.
+`callback` looks like:
+
+```javascript
+function myAddCallback(id, component, value) { /* ... */ }
+```
 
 ## onRemoveComponent(component, callback)
 
-Registers a callback to be called when `component` is removed from any entity. For example: `callback(id, component, oldValue)`.
+Registers a callback to be called when `component` is removed from any entity.
+`callback` looks like:
 
-## find(search)
-
-Returns a list of entity ids for all entities that match the search. See `registerSearch`.
+```javascript
+function myRemoveCallback(id, component, removedValue) { /* ... */ }
+```
 
 ## registerSearch(search, components)
 
-Registers a named `search` for entities that have all components listed in the `components` array, for example: `registerSearch("collectables", ["size", "collisions"])`.
+Registers a named search for entities that have all components listed in the
+`components` array. For example:
+
+```javascript
+entities.registerSearch("collectables", ["size", "collisions"]);
+```
+
+* `search` is the name of the search to register.
+* `components` is an array of component names that an entity must possess to be
+  included in the results.
+
+## find(search)
+
+Returns a list of entity ids for all entities that match the search. See
+`registerSearch`.
+
+```javascript
+var collectables = entities.find("collectables"); // => [1, 2, 3, ...]
+```
 
 ## load(entities)
 
-Load entities into an entity pool from an array of objects.
-`load` should only be used to fill an empty Entity Pool.
-The format looks like:
+Load entities into an entity pool from an array of objects. `load` should only
+be used to fill an empty `EntityPool`. The format looks like:
 
 ```json
 [
@@ -176,19 +221,15 @@ The format looks like:
 
 ## save()
 
-Returns an object suitable for saving all entities in the `EntityPool` to a JSON file. See `load()`.
-
-# Design Goals
-
-1. Perform no allocations during calls to `run()`. This is to avoid triggering garbage collection which can make games stutter.
-2. Don't manage entities. This lets users implement object pools to prevent triggering garbage collection.
+Returns an object suitable for saving all entities in the `EntityPool` to a JSON
+file. See `load()`.
 
 # Install
 
 With [npm](https://www.npmjs.com/) do:
 
 ```
-npm install entity-component-system
+npm install --save entity-component-system
 ```
 
 # License
