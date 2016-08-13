@@ -35,10 +35,10 @@ ecs.add(drawBackground);
 function drawEntity(entity, elapsed) { /* ... */ }
 ecs.addEach(drawEntity, "sprite"); // only run on entities with a "sprite" component
 
-var pool = new EntityPool();
+var entities = new EntityPool();
 function spriteFactory() { return { "image": null }; }
-pool.registerComponent("sprite", spriteFactory);
-pool.load(/* some JSON */);
+entities.registerComponent("sprite", spriteFactory);
+entities.load(/* some JSON */);
 
 var lastTime = -1;
 var render = function(time) {
@@ -48,7 +48,7 @@ var render = function(time) {
   var elapsed = time - this.lastTime;
   this.lastTime = time;
 
-  ecs.run(pool, elapsed);
+  ecs.run(entities, elapsed);
   window.requestAnimationFrame(render);
 };
 window.requestAnimationFrame(render);
@@ -134,10 +134,20 @@ stuttering caused by garbage collection.
 
 Creates a new entity, and returns the entity's id.
 
+```javascript
+var player = entities.create(); // => 1
+```
+
 ## destroy(id)
 
 Removes all the components for an entity, and deletes the entity. The
 `onRemoveComponent` callbacks are fired for each component that is removed.
+
+* `id` is the id of the entity to destroy.
+
+```javascript
+entities.destroy(player);
+```
 
 ## registerComponent(component, factory, reset, size)
 
@@ -145,27 +155,51 @@ Registers a component type.
 
 * `component` is the name of the component to register.
 * `factory` is a factory function which returns a newly allocated instance of
-  the component.
+  the component. For example:
+
+    ```javascript
+    function createPosition() {
+      return {
+        x: 0,
+        y: 0
+      };
+    }
+    ```
+
 * `reset` is an optional function which alters a previously used component
-  instance to a clean state so it can be reused on a new entity.
+  instance to a clean state so it can be reused on a new entity. For example:
+
+    ```javascript
+    function resetPosition(position) {
+      position.x = 0;
+      position.y = 0;
+    }
+    ```
+
 * `size` is an optional number of instances to allocate initially.
-
-## getComponent(id, component)
-
-Returns the component value for an entity.
-
-## removeComponent(id, component)
-
-Removes a component from an entity. The `onRemoveComponent` callbacks are fired
-for the removed component.
 
 ## addComponent(id, component)
 
 Adds a new component to an entity, and returns it. If the component is newly added,
 the `onAddComponent` callbacks are fired. If the component already existed, it is reset.
 
+* `id` is the id of the entity to add the component to.
+* `component` is the name of the component to add.
+
 ```javascript
-var sprite = pool.addComponent(someEntity, "sprite");
+var sprite = entities.addComponent(player, "sprite");
+sprite.image = "something.png";
+```
+
+## getComponent(id, component)
+
+Returns the component value for an entity.
+
+* `id` is the id of the entity to get the component from.
+* `component` is the name of the component to get.
+
+```javascript
+var sprite = entities.getComponent(player, "sprite");
 sprite.image = "something.png";
 ```
 
@@ -173,6 +207,26 @@ sprite.image = "something.png";
 
 Sets a primitive value for a component. To change a component that holds an
 object, use `getComponent` instead.
+
+* `id` is the id of the entity to set the component on.
+* `component` is the name of the component to set.
+* `value` is the primitive value to set.
+
+```javascript
+entities.setComponent(player, "health", 100);
+```
+
+## removeComponent(id, component)
+
+Removes a component from an entity. The `onRemoveComponent` callbacks are fired
+for the removed component.
+
+* `id` is the id of the entity to remove the component from.
+* `component` is the name of the component to remove.
+
+```javascript
+entities.removeComponent(player, "health");
+```
 
 ## onAddComponent(component, callback)
 
