@@ -28,6 +28,8 @@ ecs.addEach(drawEntity, "sprite"); // only run on entities with a "sprite" compo
 
 var EntityPool = require("entity-component-system").EntityPool;
 var pool = new EntityPool();
+function spriteFactory() { return { "image": null }; }
+pool.registerComponent("sprite", spriteFactory);
 pool.load(/* some JSON */);
 
 var canvas = document.getElementById("canvas");
@@ -86,22 +88,25 @@ Creates a new entity, and returns the entity's id.
 
 Removes all the components for an entity, and deletes the entity. The `onRemoveComponent` callbacks are fired for each component that is removed.
 
-## get(id, component)
+## registerComponent(component, factory, reset, size)
+
+Registers a component type. The `factory` function returns a newly allocated instance of the component. The optional `reset` function resets a previously used component instance to a clean state so it can be used again for a new entity. The optional `size` specifies how many instances to allocate initially.
+
+## getComponent(id, component)
 
 Returns the component value for an entity.
 
-## remove(id, component)
+## removeComponent(id, component)
 
 Removes a component from an entity. The `onRemoveComponent` callbacks are fired for the removed component.
 
-## set(id, component, value)
+## addComponent(id, component, value)
 
-Adds or changes a component value for an entity. If the component is newly added, the `onAddComponent` callbacks are fired for the added component.
-When a new component is `set()`, `registerSearch` is automatically called for that single component.
+Adds component to an entity, and returns it. If the component is newly added, the `onAddComponent` callbacks are fired, and `registerSearch` is automatically called for the added component. If the component already existed, it is reset.`
 
 ```javascript
-pool.set(someEntity, "someComponent", someValue);
-pool.registerSearch("someComponent", ["someComponent"]); // this is automatically called for you
+var sprite = pool.addComponent(someEntity, "sprite");
+sprite.image = "something.png";
 ```
 
 ## onAddComponent(component, callback)
