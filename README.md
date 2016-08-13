@@ -61,34 +61,40 @@ them on the entities inside an `EntityPool`.
 
 ## add(system)
 
-Adds a "system" function to the ECS. `system` is called once every time
-`run` is called. `system` looks like:
+Adds a "system" function to the ECS so it will be called once every time `run`
+is called.
 
-```javascript
-function mySystem(entityPool, elapsedTime) { /* ... */ }
-```
+* `system` is a function that operates on all entities. `system` has the format:
 
-* `entityPool` is the `EntityPool` of entities to operate on.
-* `elapsedTime` is the elapsed milliseconds since the last call to `run`.
+    ```javascript
+    function mySystem(entityPool, elapsedTime) { /* ... */ }
+    ```
+
+    * `entityPool` is the `EntityPool` of entities to operate on.
+    * `elapsedTime` is the elapsed time since the last call to `run`.
 
 
 ## addEach(system, search)
 
-Adds a "system" function to the ECS. `system` is called once for each entity
+Adds a "system" function to the ECS so it will be called once for each entity
 returned from `EntityPool.find(search)` in the `EntityPool` passed to `run`.
-`system` looks like:
 
-```javascript
-function mySystem(entityId, elapsedTime) { /* ... */ }
-```
+* `system` is a function that operates on a single entity matching `search`.
+  `system` has the format:
 
-* `entityId` is the id of an entity to operate on.
-* `elapsedTime` is the elapsed milliseconds since the last call to `run`.
+    ```javascript
+    function mySystem(entityId, elapsedTime) { /* ... */ }
+    ```
+
+    * `entityId` is the id of an entity to operate on.
+    * `elapsedTime` is the elapsed time since the last call to `run`.
 
 ## run(entityPool, elapsedTime)
 
-Invokes all systems with the specified `EntityPool`, and elapsed time in
-milliseconds.
+Invokes all systems in the order they were added to the `EntityComponentSystem`.
+
+* `entityPool` is the collection of entities to operate on.
+* `elapsedTime` is the time passed since you last called `run`.
 
 ## runs()
 
@@ -96,9 +102,16 @@ Returns the number of times `run` was called.
 
 ## timings()
 
-Returns an array of each system's `name` and `time` it ran in milliseconds. The
+Returns an array of each system's name and time it ran in milliseconds. The
 system names are gathered from the names of functions passed to `add` and
-`addEach`.
+`addEach`. An example return value:
+
+```json
+{
+  "drawBackground": 0.02,
+  "drawEntity": 5.00
+}
+```
 
 ## resetTimings()
 
