@@ -249,20 +249,23 @@ function myRemoveCallback(id, component, removedValue) { /* ... */ }
 ## registerSearch(search, components)
 
 Registers a named search for entities that have all components listed in the
-`components` array. For example:
-
-```javascript
-entities.registerSearch("collectables", ["size", "collisions"]);
-```
+`components` array.
 
 * `search` is the name of the search to register.
 * `components` is an array of component names that an entity must possess to be
   included in the results.
 
+```javascript
+entities.registerSearch("collectables", ["size", "collisions"]);
+```
+
 ## find(search)
 
 Returns a list of entity ids for all entities that match the search. See
 `registerSearch`.
+
+* `search` is the name of the search previously registered with
+  `registerSearch`.
 
 ```javascript
 var collectables = entities.find("collectables"); // => [1, 2, 3, ...]
@@ -271,22 +274,23 @@ var collectables = entities.find("collectables"); // => [1, 2, 3, ...]
 ## load(entities)
 
 Load entities into an entity pool from an array of objects. `load` should only
-be used to fill an empty `EntityPool`. The format looks like:
+be used to fill an empty `EntityPool`.
 
-```json
-[
-	{
-		"id": 1,
-		"componentName": "componentValue"
-	},
-	{
-		"id": 2,
-		"componentName": "componentValue"
-	}
-]
-```
+* `entities` is some JSON-compatible object returned by `save`. The format looks
+  like:
 
-`load` should be able to load whatever `save` outputs.
+    ```json
+    [
+      {
+        "id": 1,
+        "componentName": "componentValue"
+      },
+      {
+        "id": 2,
+        "componentName": "componentValue"
+      }
+    ]
+    ```
 
 ## save()
 
