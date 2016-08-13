@@ -89,6 +89,8 @@ returned from `EntityPool.find(search)` in the `EntityPool` passed to `run`.
     * `entityId` is the id of an entity to operate on.
     * `elapsedTime` is the elapsed time since the last call to `run`.
 
+* `search` is the name of a search that was previously registered with `registerSearch`. `system` is invoked once for every entity in the results of `search`.
+
 ## run(entityPool, elapsedTime)
 
 Invokes all systems in the order they were added to the `EntityComponentSystem`.
