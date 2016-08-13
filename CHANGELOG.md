@@ -3,6 +3,16 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+- `EntityPool.registerComponent` registers a component factory, enabling object
+  pooling.
+- `EntityPool.addComponent` adds a component from the object pool to an entity.
+  Replaces `set`.
+### Changed
+- `EntityPool.get` was renamed to `getComponent`
+- `EntityPool.remove` was renamed to `removeComponent`
+- `EntityPool.set` was renamed to `setComponent`, and should now only be called with primitive values. This makes it harder to break the object pooling behavior, requiring you to use `get` to manipulate components without accidentally allocating new ones.
+
 
 ## [3.0.0] - 2016-06-04
 ### Changed
