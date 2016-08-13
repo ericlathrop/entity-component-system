@@ -1,16 +1,22 @@
 # entity-component-system
 
-An implementation of the [Entity Component System](https://en.wikipedia.org/wiki/Entity_component_system) (ECS) pattern used commonly in video games.
+An implementation of the [Entity Component
+System](https://en.wikipedia.org/wiki/Entity_component_system) (ECS) pattern
+used commonly in video games.
 
-ECS is a way of organizing a system using composition instead of inheritance. It allows you to turn behaviors on and off by adding and removing components to entities.
+ECS is a way of organizing a system using composition instead of inheritance. It
+allows you to turn behaviors on and off by adding and removing components to
+entities.
 
-This module manages the running a list of "systems" over a collection of entities.
-An "entity" is a logical object in a game.
-A "component" is a chunk of data attached to an entity.
-A "system" is a function that runs on all entities with specific components.
+This module manages the running of a list of "systems" over a collection of
+entities.
 
+* An "entity" is a logical object in a game.
+* A "component" is a chunk of data attached to an entity.
+* A "system" is a function that runs on all entities with specific components.
 
-The only way to make changes to an entity is to create/edit/delete components attached to it.
+The only way to make changes to an entity is to create/edit/delete components
+attached to it.
 
 
 # Example
@@ -44,33 +50,49 @@ window.requestAnimationFrame(render);
 
 # EntityComponentSystem
 
-An `EntityComponentSystem` holds the systems (code) and allows you to run them with the entities inside an `EntityPool`.
+An `EntityComponentSystem` holds the systems (code) and allows you to `run`
+them on the entities inside an `EntityPool`.
 
 ## add(system)
 
-Adds a "system" to the ECS, where a system is a function.
-The system is called once every time `run()` is called.
-The first parameter passed to the system is the `EntityPool` of entities to operate on.
-The second parameters passed to the system is the elapsed milliseconds since the last call to `run()`.
+Adds a "system" function to the ECS. `system` is called once every time
+`run` is called. `system` looks like:
+
+```javascript
+function mySystem(entityPool, elapsedTime) { /* ... */ }
+```
+
+* `entityPool` is the `EntityPool` of entities to operate on.
+* `elapsedTime` is the elapsed milliseconds since the last call to `run`.
+
 
 ## addEach(system, search)
 
-Adds a "system" to the ECS, where a system is a function.
-The system is called once for each entity returned from `EntityPool.find(search)` in the `EntityPool` passed to `run()`.
-The first parameter passed to the system is an entity id.
-The second parameters passed to the system is the elapsed milliseconds since the last call to `run()`.
+Adds a "system" function to the ECS. `system` is called once for each entity
+returned from `EntityPool.find(search)` in the `EntityPool` passed to `run`.
+`system` looks like:
+
+```javascript
+function mySystem(entityId, elapsedTime) { /* ... */ }
+```
+
+* `entityId` is the id of an entity to operate on.
+* `elapsedTime` is the elapsed milliseconds since the last call to `run`.
 
 ## run(entityPool, elapsedTime)
 
-Invokes all systems with the specified EntityPool, and elapsed time in milliseconds.
+Invokes all systems with the specified `EntityPool`, and elapsed time in
+milliseconds.
 
 ## runs()
 
-Returns the number of times `run()` was called.
+Returns the number of times `run` was called.
 
 ## timings()
 
-Returns an array of each system's `name` and `time` it ran in milliseconds. The system names are gathered from the names of functions passed to `add` and `addEach`.
+Returns an array of each system's `name` and `time` it ran in milliseconds. The
+system names are gathered from the names of functions passed to `add` and
+`addEach`.
 
 ## resetTimings()
 
@@ -102,7 +124,7 @@ Removes a component from an entity. The `onRemoveComponent` callbacks are fired 
 
 ## addComponent(id, component, value)
 
-Adds component to an entity, and returns it. If the component is newly added, the `onAddComponent` callbacks are fired, and `registerSearch` is automatically called for the added component. If the component already existed, it is reset.`
+Adds component to an entity, and returns it. If the component is newly added, the `onAddComponent` callbacks are fired, and `registerSearch` is automatically called for the added component. If the component already existed, it is reset.
 
 ```javascript
 var sprite = pool.addComponent(someEntity, "sprite");
