@@ -21,29 +21,35 @@ attached to it.
 
 # Example
 
-This is an example video game rendering loop:
+This is an example game loop:
 
 ```javascript
-function drawBackground(entities, context) { /* ... */ }
-function drawEntity(entity, context) { /* ... */ }
-
 var EntityComponentSystem = require("entity-component-system").EntityComponentSystem;
+var EntityPool = require("entity-component-system").EntityPool;
+
 var ecs = new EntityComponentSystem();
+
+function drawBackground(entities, elapsed) { /* ... */ }
 ecs.add(drawBackground);
+
+function drawEntity(entity, elapsed) { /* ... */ }
 ecs.addEach(drawEntity, "sprite"); // only run on entities with a "sprite" component
 
-var EntityPool = require("entity-component-system").EntityPool;
 var pool = new EntityPool();
 function spriteFactory() { return { "image": null }; }
 pool.registerComponent("sprite", spriteFactory);
 pool.load(/* some JSON */);
 
-var canvas = document.getElementById("canvas");
-var context = canvas.getContext("2d");
-
+var lastTime = -1;
 var render = function(time) {
-	ecs.run(pool, context);
-	window.requestAnimationFrame(render);
+  if (this.lastTime === -1) {
+    this.lastTime = time;
+  }
+  var elapsed = time - this.lastTime;
+  this.lastTime = time;
+
+  ecs.run(pool, elapsed);
+  window.requestAnimationFrame(render);
 };
 window.requestAnimationFrame(render);
 ```
