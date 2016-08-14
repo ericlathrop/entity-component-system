@@ -1,6 +1,6 @@
 {
   "name": "entity-component-system",
-  "version": "4.0.2",
+  "version": "4.0.3",
   "description": "An implementation of the Entity component system (ECS) pattern used commonly in video games.",
   "main": "lib/index.js",
   "scripts": {
