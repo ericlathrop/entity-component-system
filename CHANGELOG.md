@@ -4,6 +4,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [4.0.2] - 2016-08-14
+### Fixed
+- Change from NoSuchComponentPoolException to Error so stack traces work
+
 ## [4.0.1] - 2016-08-14
 ### Fixed
 - NoSuchComponentPoolException is now a proper Error
