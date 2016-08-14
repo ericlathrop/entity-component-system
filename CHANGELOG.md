@@ -3,6 +3,12 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## [4.0.1] - 2016-08-14
+### Fixed
+- NoSuchComponentPoolException is now a proper Error
+
+## [4.0.0] - 2016-08-14
 ### Added
 - `EntityPool.registerComponent` registers a component factory, enabling object
   pooling.
