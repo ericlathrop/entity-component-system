@@ -4,6 +4,11 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [4.0.4] - 2016-08-14
+### Fixed
+- Prevent entity from being in search multiple times when calling
+  EntityPool.setComponent() with a primitive value
+
 ## [4.0.3] - 2016-08-14
 ### Fixed
 - More specific error message to aid in debugging
