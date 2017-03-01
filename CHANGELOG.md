@@ -4,6 +4,11 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [4.0.5] - 2017-02-28
+### Fixed
+- EntityPool.removeComponent() now fires "remove" callback before resetting the
+  removed component.
+
 ## [4.0.4] - 2016-08-14
 ### Fixed
 - Prevent entity from being in search multiple times when calling
